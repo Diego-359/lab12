@@ -29,14 +29,12 @@ from auth_utils import require_role
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-# [READ] Obtener lista de todos los usuarios (Para el Admin)
 @router.get("/")
 async def list_users():
     db = firestore.client()
     users = db.collection("users").stream()
     return [u.to_dict() for u in users]
 
-# [READ] Obtener un usuario específico por ID
 @router.get("/{user_id}")
 async def get_user(user_id: str):
     db = firestore.client()
@@ -45,7 +43,6 @@ async def get_user(user_id: str):
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return user_ref.to_dict()
 
-# [UPDATE] Inhabilitar un usuario (Update de estado)
 @router.patch("/{user_id}/disable")
 async def disable_user(user_id: str):
     db = firestore.client()
@@ -55,7 +52,6 @@ async def disable_user(user_id: str):
     user_ref.update({"is_active": False})
     return {"message": "Usuario inhabilitado correctamente"}
 
-# [DELETE] Eliminar un usuario de la base de datos
 @router.delete("/{user_id}")
 async def delete_user(user_id: str):
     db = firestore.client()
