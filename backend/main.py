@@ -11,7 +11,11 @@ from auth_utils import get_current_user, require_role
 class RoleUpdateBody(BaseModel):
     new_role: str
 
-cred = credentials.Certificate("hogarlimpio-dffeb-firebase-adminsdk-fbsvc-a0be160afb.json")
+#cred = credentials.Certificate("hogarlimpio-dffeb-firebase-adminsdk-fbsvc-a0be160afb.json")
+import os
+base_path = os.path.dirname(__file__)
+json_path = os.path.join(base_path, "hogarlimpio-dffeb-firebase-adminsdk-fbsvc-a0be160afb.json")
+cred = credentials.Certificate(json_path)
 firebase_admin.initialize_app(cred)
 
 user_service = UserService()
