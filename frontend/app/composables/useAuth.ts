@@ -42,7 +42,7 @@ export const useAuth = () => {
         const token = await getIdToken(userCredential.user, true)
 
         console.log(token)
-        const userData = await $fetch<UserMeResponse>('http://localhost:8000/users/me', {
+        const userData = await $fetch<UserMeResponse>('https://hogar-limpio-backend.onrender.com/users/me', {
             headers: { Authorization: `Bearer ${token}` }
         })
 
@@ -77,7 +77,7 @@ export const useAuth = () => {
 
             const token = await getIdToken(userCredential.user)
             console.log(token)
-            const syncResult = await $fetch('http://localhost:8000/users/signup-sync', {
+            const syncResult = await $fetch('https://hogar-limpio-backend.onrender.com/users/signup-sync', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -80,7 +80,7 @@ async function fetchUsers() {
     try {
         const token = await getToken()
         if (!token) throw new Error('No autenticado')
-        const data = await $fetch<User[]>('http://localhost:8000/admin/users', {
+        const data = await $fetch<User[]>('https://hogar-limpio-backend.onrender.com/admin/users', {
             headers: { Authorization: `Bearer ${token}` }
         })
         users.value = data.map((u: any) => ({ ...u, newRole: u.role }))
@@ -99,7 +99,7 @@ async function updateRole(user: User) {
         const token = await getToken()
         if (!token) throw new Error('No autenticado')
 
-        await $fetch(`http://localhost:8000/admin/users/${user.uid}/role`, {
+        await $fetch(`https://hogar-limpio-backend.onrender.com/admin/users/${user.uid}/role`, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -123,7 +123,7 @@ async function inhabilitarUsuario(uid: string) {
         const token = await getToken() 
         if (!token) throw new Error('No autenticado')
 
-        await $fetch(`http://localhost:8000/users/${uid}/disable`, {
+        await $fetch(`https://hogar-limpio-backend.onrender.com/users/${uid}/disable`, {
             method: 'PATCH',
             headers: {
                 Authorization: `Bearer ${token}`
